@@ -23,7 +23,7 @@ def counting(shared):
         # between thread during counting
         sleep(randint(1, 10) / 1000)
         shared.counter += 1
-        # after all incrementations unlock mutex
+    # after all incrementations unlock mutex
     mutex.unlock()
 
 
