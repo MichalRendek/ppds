@@ -26,6 +26,7 @@ def counting(shared):
         # after all incrementations unlock mutex
     mutex.unlock()
 
+
 shared = Shared(1000)
 
 t1 = Thread(counting, shared)
