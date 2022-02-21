@@ -17,12 +17,14 @@ mutex = Mutex()
 
 def counting(shared):
     while shared.counter < shared.end:
+        # lock all body of while, thread do not be change during all incrementations
         mutex.lock()
         shared.array[shared.counter] += 1
         # insert sleep in random time for random switching
         # between thread during counting
         sleep(randint(1, 10) / 1000)
         shared.counter += 1
+        # after all incrementations unlock mutex
         mutex.unlock()
 
 
