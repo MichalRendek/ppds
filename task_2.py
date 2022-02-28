@@ -24,29 +24,25 @@ def barrier_example(thread_name):
         m.lock()
         counter += 1
         if counter == THREADS:
-            s2.wait()
-            s1.signal()
+            s1.signal(THREADS)
         m.unlock()
         s1.wait()
-        s1.signal()
 
         ko(thread_name)
 
         m.lock()
         counter -= 1
         if counter == 0:
-            s1.wait()
-            s2.signal()
+            s2.signal(THREADS)
         m.unlock()
         s2.wait()
-        s2.signal()
 
 
 threads = list()
 
 m = Mutex()
 s1 = Semaphore(0)
-s2 = Semaphore(1)
+s2 = Semaphore(0)
 counter = 0
 THREADS = 5
 
