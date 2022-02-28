@@ -26,3 +26,5 @@ ko function all threads again.
 Second solution contain simply same code but semaphore pass through 
 after wait no one thread bud all in same time. This functionality is 
 implement in semaphore core code.
+<hr>
+Third solution use two unattached ADT simple barriers.
