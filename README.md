@@ -9,8 +9,10 @@ Program must run in Python 3.10.1
 Write a simple barrier form lecture scrap
 ### Solution 
 Code was write from lecture scrap so here will be same similarities.
-I create 5 threads and run their. Every thread call function barrier_example
+I create 5 threads and run their. Every thread call function <i>barrier_example</i>
 which print thread id before barrier and after her. 
+<br>
+Then I modify program. Semaphore change with Event.
 
 ## Task 2
 ### Description
