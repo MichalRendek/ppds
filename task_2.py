@@ -4,6 +4,23 @@ from fei.ppds import Thread, Mutex, Semaphore
 from fei.ppds import print
 
 
+class SimpleBarrier:
+    def __init__(self, N):
+        self.N = N
+        self.C = 0
+        self.S = Semaphore(0)
+        self.M = Mutex()
+
+    def wait(self):
+        self.M.lock()
+        self.C += 1
+        if self.C == self.N:
+            self.C = 0
+            self.S.signal(self.N)
+        self.M.unlock()
+        self.S.wait()
+
+
 def rendezvous(thread_name):
     sleep(randint(1, 10) / 10)
     print('rendezvous: %s' % thread_name)
@@ -14,40 +31,21 @@ def ko(thread_name):
     sleep(randint(1, 10) / 10)
 
 
-def barrier_example(thread_name):
-    # this two variables are set as global for global connect to their
-    global counter
-    global THREADS
-
+def barrier_example(s1, s2, thread_name):
     while True:
         rendezvous(thread_name)
-        m.lock()
-        counter += 1
-        if counter == THREADS:
-            s1.signal(THREADS)
-        m.unlock()
         s1.wait()
-
         ko(thread_name)
-
-        m.lock()
-        counter -= 1
-        if counter == 0:
-            s2.signal(THREADS)
-        m.unlock()
         s2.wait()
 
 
 threads = list()
-
-m = Mutex()
-s1 = Semaphore(0)
-s2 = Semaphore(0)
-counter = 0
 THREADS = 5
+b1 = SimpleBarrier(THREADS)
+b2 = SimpleBarrier(THREADS)
 
 for i in range(THREADS):
-    t = Thread(barrier_example, 'Thread %d' % i)
+    t = Thread(barrier_example, b1, b2, 'Thread %d' % i)
     threads.append(t)
 
 for t in threads:
