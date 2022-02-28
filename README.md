@@ -17,3 +17,12 @@ which print thread id before barrier and after her.
 Write program including waiting every one thread before two functions in 
 line.
 ### Solution 
+First solution contains simple semaphore wait and signal functions 
+with counter like as simple barrier. Firstly, counter increase while 
+number of counter is number of threads. Then all threads pass through
+double barrier. Second, counted decrease to zero, then pass through after 
+ko function all threads again.
+<hr>
+Second solution contain simply same code but semaphore pass through 
+after wait no one thread bud all in same time. This functionality is 
+implement in semaphore core code.
