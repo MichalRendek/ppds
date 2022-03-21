@@ -55,3 +55,34 @@ still second. Then he is called half times less.
 
 In my solution to the problem, the call of smokers alternates evenly so that each one is first and once a second. This 
 solution proves to be sufficient to solve the problem.
+
+## Task 2 / the problem of savages
+### Description
+Develop a program that solves the modified synchronization problem of throwing savages (Dinning Savages).
+There are several chefs in the tribe. When the savage finds out that the pot is empty, he wakes up ALL the chefs who can help each other cook and cook together. ONLY ONE chef will tell the waiting savage that he is cooked.
+The chef puts portions into the pot, not savages!
+
+### Solution
+I use code from lecture, remake some functions and add this in solution 
+
+#### First step
+Set semaphore signal for all cookers
+>       117    print(f"divoch {sid}: budim kuchara")
+>       118    # signal for all cookers
+>       119    shared.emptyPot.signal(cooker_number)
+>       220    shared.fullPot.wait()
+
+#### Second step
+Add barrier for waiting for all cookers and do code one by one
+>       89    shared.cooker_wait.wait(last="\n")
+
+#### Thirty step
+Add counter in shared and increment it after every thread of cooker.
+If is last cooker, signalize full pot for savage and reset cooker counter
+
+>       92    shared.cookers += 1
+>       93    if shared.cookers == cooker_number:
+>       94        putServingsInPot(shared)
+>       95        # signal for savages
+>       96        shared.fullPot.signal()
+>       97        shared.cookers = 0
