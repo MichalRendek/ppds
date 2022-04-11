@@ -1,6 +1,6 @@
 # Exercise seven
 
-## Barber problem without overtaking
+## Generators and scheduler
 ### Description 
 Write an application that will use N (N> 2) coprograms (using advanced generators) and use your own scheduler to rotate 
 them. Do not use program code from the recommended literature for the solution.
